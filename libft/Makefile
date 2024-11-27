@@ -17,7 +17,7 @@ BONUS_OBJS = $(BONUS_SRCS:.c=.o)
 NAME = libft.a
 HEADER = libft.h
 CC = cc
-CFLAGS = -Wall -Werror -Wextra
+CFLAGS = -Wall -Werror -Wextra -g
 RM = rm -f
 AR = ar rsc
 all: $(NAME)
