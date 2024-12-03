@@ -6,7 +6,7 @@
 #    By: aybelhaj <aybelhaj@student.42barcelona.co  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/25 21:50:13 by aybelhaj          #+#    #+#              #
-#    Updated: 2024/11/25 22:04:01 by aybelhaj         ###   ########.fr        #
+#    Updated: 2024/12/03 19:04:28 by aybelhaj         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ CC		=	cc
 CFLAGS	=	-Wall -Wextra -Werror
 
 OBJDIR	=	build
-SRCS	=	ft_printf.c
+SRCS	=	ft_printf.c ft_printf_utils.c
 OBJS	=	$(addprefix $(OBJDIR)/, ${SRCS:.c=.o})
 LIBFT_PATH	=	./libft
 LIBFT		=	$(LIBFT_PATH)/libft.a
@@ -32,7 +32,7 @@ $(LIBFT):
 	@printf "%-42b%b" "$(PURPLE)$(*F):" "$(BLUE)$(@)$(RESET)\n"
 	@make -C $(LIBFT_PATH) --silent
 
-$(OBJS): $(OBJDIR)/%.o : %.c | $(OBJDIR)
+$(OBJS): $(OBJDIR)/%.o : %.c ft_printf.h | $(OBJDIR)
 	@printf "%-42b%b" "$(PURPLE)$(<):" "$(BLUE)$(@F)$(RESET)\n"
 	@$(CC) $(CFLAGS) -c $< -o $@
 
