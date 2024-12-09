@@ -6,15 +6,19 @@
 /*   By: aybelhaj <aybelhaj@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 13:53:18 by aybelhaj          #+#    #+#             */
-/*   Updated: 2024/12/03 17:35:31 by aybelhaj         ###   ########.fr       */
+/*   Updated: 2024/12/09 20:26:32 by aybelhaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
 
-char	*montar_string(char *args, char *buf)
+char	*montar_string(char *args, char *buf, int **count)
 {
 	char	*res;
 
+	if (args)
+		*(*count) += ft_strlen(args);
+	else
+		*(*count) += 6;
 	if (!buf && args)
 		return (ft_strdup(args));
 	else if (!args && buf)
@@ -25,29 +29,28 @@ char	*montar_string(char *args, char *buf)
 		return (res = ft_strjoin(buf, args), free(buf), res);
 }
 
-char	*montar(char *buf, char c)
+char	*montar(char *buf, char c, int *len)
 {
 	char	*res;
-	char	tmp[2];
 
-	tmp[0] = c;
-	tmp[1] = '\0';
-	if (!buf && c != '\0')
-		return (ft_strdup(tmp));
-	else if (c == '\0' && buf)
-		return (res = ft_strjoin(buf, "\0"), free(buf), res);
-	else if (c == '\0' && !buf)
-		return (ft_strdup("\0"));
-	else
-		return (res = ft_strjoin(buf, tmp), free(buf), res);
+	res = ft_calloc(*len + 2, sizeof(char));
+	if (buf)
+	{
+		ft_memcpy(res, buf, *len);
+		free(buf);
+	}
+	res[(*len)++] = c;
+	res[*len] = '\0';
+	return (res);
 }
 
-char	*nmb(char *buf, int n)
+char	*nmb(char *buf, int n, int **count)
 {
 	char	*res;
 	char	*nb;
 
 	nb = ft_itoa(n);
+	*(*count) += ft_strlen(nb);
 	if (!buf)
 		return (nb);
 	else
@@ -69,7 +72,7 @@ int	word_count(size_t n, int b)
 	return (i);
 }
 
-char	*ft_utoa(char *buf, size_t nmb, char *base)
+char	*ft_utoa(char *buf, size_t nmb, char *base, int **count)
 {
 	char			*src;
 	unsigned int	i;
@@ -78,6 +81,7 @@ char	*ft_utoa(char *buf, size_t nmb, char *base)
 
 	b = ft_strlen(base);
 	i = word_count(nmb, b);
+	*(*count) += i;
 	src = ft_calloc(i + 1, sizeof(char));
 	src[0] = '0';
 	while (nmb > 0)
@@ -91,12 +95,16 @@ char	*ft_utoa(char *buf, size_t nmb, char *base)
 	return (src);
 }
 
-char	*ft_pointer(char *buf, size_t n)
+/*char	*ft_pointer(char *buf, size_t n, int **count)
 {
 	char	*res;
 	char	*str;
 	char	*src;
 
+	if (n == 0)
+		*(*count) += 5;
+	else
+		*(*count) += 2;
 	if (n == 0 && !buf)
 		return (ft_strdup("(nil)"));
 	else if (n == 0 && *buf)
@@ -104,12 +112,12 @@ char	*ft_pointer(char *buf, size_t n)
 	else if (buf)
 	{
 		str = ft_strdup("0x");
-		src = ft_utoa(str, n, "0123456789abcdef");
+		src = ft_utoa(str, n, "0123456789abcdef", count);
 		return (res = ft_strjoin(buf, src), free(buf), free(src), res);
 	}
 	else
 	{
-		buf = ft_utoa(buf, n, "0123456789abcdef");
+		buf = ft_utoa(buf, n, "0123456789abcdef", count);
 		return (res = ft_strjoin("0x", buf), free(buf), res);
 	}
-}
+}*/

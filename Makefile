@@ -6,7 +6,7 @@
 #    By: aybelhaj <aybelhaj@student.42barcelona.co  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/25 21:50:13 by aybelhaj          #+#    #+#              #
-#    Updated: 2024/12/03 19:04:28 by aybelhaj         ###   ########.fr        #
+#    Updated: 2024/12/09 20:28:40 by aybelhaj         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,7 +17,7 @@ CC		=	cc
 CFLAGS	=	-Wall -Wextra -Werror
 
 OBJDIR	=	build
-SRCS	=	ft_printf.c ft_printf_utils.c
+SRCS	=	ft_printf.c ft_printf_utils.c ft_printf_ptr.c
 OBJS	=	$(addprefix $(OBJDIR)/, ${SRCS:.c=.o})
 LIBFT_PATH	=	./libft
 LIBFT		=	$(LIBFT_PATH)/libft.a
