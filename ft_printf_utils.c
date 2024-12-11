@@ -6,12 +6,12 @@
 /*   By: aybelhaj <aybelhaj@student.42barcelona.co  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 13:53:18 by aybelhaj          #+#    #+#             */
-/*   Updated: 2024/12/09 20:26:32 by aybelhaj         ###   ########.fr       */
+/*   Updated: 2024/12/11 16:10:57 by aybelhaj         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "ft_printf.h"
 
-char	*montar_string(char *args, char *buf, int **count)
+/*char	*build_string(char *args, char *buf, int **count)
 {
 	char	*res;
 
@@ -27,9 +27,23 @@ char	*montar_string(char *args, char *buf, int **count)
 		return (ft_strdup("(null)"));
 	else
 		return (res = ft_strjoin(buf, args), free(buf), res);
+}*/
+char	*build_string(char *args, char *buf, int **count)
+{
+	char	*tmp;
+	if (args)
+		tmp = args;
+	else
+		tmp = "(null)";
+	while (*tmp)
+	{
+		buf = build_char(buf, *tmp, *count);
+		tmp++;
+	}
+	return(buf);
 }
 
-char	*montar(char *buf, char c, int *len)
+char	*build_char(char *buf, char c, int *len)
 {
 	char	*res;
 
@@ -94,30 +108,3 @@ char	*ft_utoa(char *buf, size_t nmb, char *base, int **count)
 		return (str = ft_strjoin(buf, src), free(buf), free(src), str);
 	return (src);
 }
-
-/*char	*ft_pointer(char *buf, size_t n, int **count)
-{
-	char	*res;
-	char	*str;
-	char	*src;
-
-	if (n == 0)
-		*(*count) += 5;
-	else
-		*(*count) += 2;
-	if (n == 0 && !buf)
-		return (ft_strdup("(nil)"));
-	else if (n == 0 && *buf)
-		return (res = ft_strjoin(buf, "(nil)"), free(buf), res);
-	else if (buf)
-	{
-		str = ft_strdup("0x");
-		src = ft_utoa(str, n, "0123456789abcdef", count);
-		return (res = ft_strjoin(buf, src), free(buf), free(src), res);
-	}
-	else
-	{
-		buf = ft_utoa(buf, n, "0123456789abcdef", count);
-		return (res = ft_strjoin("0x", buf), free(buf), res);
-	}
-}*/

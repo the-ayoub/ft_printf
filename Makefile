@@ -6,7 +6,7 @@
 #    By: aybelhaj <aybelhaj@student.42barcelona.co  +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/11/25 21:50:13 by aybelhaj          #+#    #+#              #
-#    Updated: 2024/12/09 20:28:40 by aybelhaj         ###   ########.fr        #
+#    Updated: 2024/12/11 16:09:39 by aybelhaj         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME	=	libftprintf.a
 AR		=	ar
 ARFLAGS	=	-rcs
 CC		=	cc
-CFLAGS	=	-Wall -Wextra -Werror
+CFLAGS	=	-g -Wall -Wextra -Werror
 
 OBJDIR	=	build
 SRCS	=	ft_printf.c ft_printf_utils.c ft_printf_ptr.c
